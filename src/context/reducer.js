@@ -12,7 +12,7 @@ const reducer = (state, action) => {
         ? state.cart.cartItems.map((item) =>
             item.name === isItem.name ? newItem : item
           )
-        : [state.cart.cartItems]
+        : [...state.cart.cartItems, newItem]
       return { state, cart: { ...state.cart, cartItems } }
     }
     default:
