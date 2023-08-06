@@ -1,10 +1,11 @@
-import { StoreProvider } from "@/context/context"
+import { StateProvider } from "@/context/StateProvider"
 import "@/styles/globals.css"
-
+import reducer from "@/context/reducer"
+import { initialState } from "@/context/reducer"
 export default function App({ Component, pageProps }) {
   return (
-    <StoreProvider>
+    <StateProvider initialState={initialState} reducer={reducer}>
       <Component {...pageProps} />
-    </StoreProvider>
+    </StateProvider>
   )
 }
