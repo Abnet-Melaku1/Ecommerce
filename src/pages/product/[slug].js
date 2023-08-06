@@ -6,6 +6,7 @@ import { useRouter } from "next/router"
 import { Rating } from "@smastrom/react-rating"
 import { BsArrowLeft } from "react-icons/bs"
 import "@smastrom/react-rating/style.css"
+import { useStateValue } from "@/context/StateProvider"
 const productScreen = () => {
   const { query } = useRouter()
   const { slug } = query
@@ -15,7 +16,18 @@ const productScreen = () => {
   if (!product) {
     ;<div>not found</div>
   }
+  const [{ cart }, dispatch] = useStateValue()
+  const addToCartHandler = () => {
+    const isItemExist = cart.cartItems.find(
+      (item) => item.slug === product.slug
+    )
+    const quantity = isItemExist ? isItemExist?.quantity + 1 : 1
 
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: { ...product, quantity: quantity },
+    })
+  }
   return (
     <Layout>
       <div className='container mx-auto'>
@@ -46,7 +58,9 @@ const productScreen = () => {
                 {product?.numReviews} Ratings
               </span>
             </span>
-            <button className='relative flex w-full items-center justify-center rounded-full bg-orange-700 p-4 tracking-wide text-white hover:opacity-90'>
+            <button
+              className='relative flex w-full items-center justify-center rounded-full bg-orange-700 p-4 tracking-wide text-white hover:opacity-90'
+              onClick={addToCartHandler}>
               Add to Cart
             </button>
           </div>
