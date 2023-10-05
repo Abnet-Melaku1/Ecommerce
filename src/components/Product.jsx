@@ -1,8 +1,26 @@
 import Image from "next/image"
 import Link from "next/link"
-
+import { useStateValue } from "@/context/StateProvider"
+import { useRouter } from "next/router"
+import { ToastContainer, toast } from "react-toastify"
 const Product = ({ product }) => {
-  console.log(product)
+  const [{ cart }, dispatch] = useStateValue()
+  const addToCartHandler = () => {
+    const isItemExist = cart.cartItems.find(
+      (item) => item.slug === product.slug
+    )
+    const quantity = isItemExist ? isItemExist?.quantity + 1 : 1
+
+    if (product.countInStock < quantity) {
+      toast.warning("Product is out of the stock.")
+      return
+    }
+
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: { ...product, quantity: quantity },
+    })
+  }
   return (
     <div>
       <div className='relative group'>
@@ -14,7 +32,9 @@ const Product = ({ product }) => {
           height={600}
         />
         <div className=' absolute bottom-0 p-8 w-full opacity-0 group-hover:opacity-100'>
-          <button className=' font-medium text-base leading-4 text-gray-800 bg-white py-3 w-full'>
+          <button
+            className=' font-medium text-base leading-4 text-gray-800 bg-white py-3 w-full'
+            onClick={addToCartHandler}>
             Add to bag
           </button>
           <button className=' bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white'>
