@@ -4,10 +4,12 @@ import React, { useState, useEffect } from "react"
 import { useStateValue } from "@/context/StateProvider"
 
 import useCartStore from "@/hooks/useCart"
-import dynamic from "next/dynamic"
 
 import Cart from "@/pages/cart"
+import { useSession } from "next-auth/react"
+import { ClipLoader } from "react-spinners"
 const Nav = () => {
+  const { status, data: session } = useSession()
   const [showMenu, setShowMenu] = useState(false)
   const [{ cart }] = useStateValue()
   const { isCartOpen, toggleCart } = useCartStore()
@@ -21,7 +23,7 @@ const Nav = () => {
       {isCartOpen && <Cart />}
       <div className='dark:bg-gray-900'>
         <div className='container mx-auto relative'>
-          <div className='py-4 mx-4 md:mx-6'>
+          <div className='pt-4 mx-4 md:mx-6'>
             <div className='flex items-center justify-between border-b border-gray-200 dark:border-gray-700 py-4'>
               <div>
                 <div className='hidden lg:block cursor-pointer' role='img'>
@@ -146,12 +148,24 @@ const Nav = () => {
                     </span>
                   )}
                 </div>
-                <Link href='/login'>
-                  {" "}
-                  <button className='focus:outline-none focus:ring-2 focus:ring-gray-800 rounded bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white px-3 py-1'>
-                    Login
-                  </button>{" "}
-                </Link>
+
+                {status === "loading" ? (
+                  <ClipLoader
+                    size={15}
+                    aria-label='Loading Spinner'
+                    data-testid='loader'
+                  />
+                ) : session?.user ? (
+                  <p className='text-orange-700 pl-2 text-base font-normal'>
+                    {session.user.name}
+                  </p>
+                ) : (
+                  <Link href='/login'>
+                    <button className='focus:outline-none focus:ring-2 focus:ring-gray-800 rounded bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white px-3 py-1'>
+                      Login
+                    </button>
+                  </Link>
+                )}
               </div>
               <div className='md:hidden'>
                 <button
@@ -189,37 +203,6 @@ const Nav = () => {
                   </svg>
                 </button>
               </div>
-            </div>
-            <div className='mt-4 pb-4 flex space-x-3 border-b border-gray-200 dark:border-gray-700'>
-              <div>
-                <svg
-                  className='fill-stroke text-gray-600 dark:text-white'
-                  width={20}
-                  height={20}
-                  viewBox='0 0 20 20'
-                  fill='none'
-                  xmlns='http://www.w3.org/2000/svg'>
-                  <path
-                    d='M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z'
-                    stroke='currentColor'
-                    strokeWidth='1.25'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                  <path
-                    d='M19.0004 19.0004L14.6504 14.6504'
-                    stroke='currentColor'
-                    strokeWidth='1.25'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
-              </div>
-              <input
-                type='text'
-                placeholder='Search for products'
-                className='focus:outline-none bg-transparent text-sm text-gray-600'
-              />
             </div>
           </div>
           <div

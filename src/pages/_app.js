@@ -1,14 +1,20 @@
 import { StateProvider } from "@/context/StateProvider"
 import "@/styles/globals.css"
-import { ToastContainer, toast } from "react-toastify"
+import { ToastContainer } from "react-toastify"
+import { SessionProvider } from "next-auth/react"
 import "react-toastify/dist/ReactToastify.css"
 import reducer from "@/context/reducer"
 import { initialState } from "@/context/reducer"
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   return (
-    <StateProvider initialState={initialState} reducer={reducer}>
-      <Component {...pageProps} />
-      <ToastContainer />
-    </StateProvider>
+    <SessionProvider session={session}>
+      <StateProvider initialState={initialState} reducer={reducer}>
+        <Component {...pageProps} />
+        <ToastContainer />
+      </StateProvider>
+    </SessionProvider>
   )
 }
