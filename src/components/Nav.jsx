@@ -8,6 +8,7 @@ import useCartStore from "@/hooks/useCart"
 import Cart from "@/pages/cart"
 import { useSession } from "next-auth/react"
 import { ClipLoader } from "react-spinners"
+import NavMenu from "./NavMenu"
 const Nav = () => {
   const { status, data: session } = useSession()
   const [showMenu, setShowMenu] = useState(false)
@@ -156,9 +157,7 @@ const Nav = () => {
                     data-testid='loader'
                   />
                 ) : session?.user ? (
-                  <p className='text-orange-700 pl-2 text-base font-normal'>
-                    {session.user.name}
-                  </p>
+                  <NavMenu name={session.user.name}/>
                 ) : (
                   <Link href='/login'>
                     <button className='focus:outline-none focus:ring-2 focus:ring-gray-800 rounded bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white px-3 py-1'>

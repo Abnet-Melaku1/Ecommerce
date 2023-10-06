@@ -1,8 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useStateValue } from "@/context/StateProvider"
-import { useRouter } from "next/router"
-import { ToastContainer, toast } from "react-toastify"
+
+import { toast } from "react-toastify"
 const Product = ({ product }) => {
   const [{ cart }, dispatch] = useStateValue()
   const addToCartHandler = () => {

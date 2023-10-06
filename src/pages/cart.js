@@ -20,7 +20,7 @@ function Cart() {
   }
   const [{ cart }, dispatch] = useStateValue()
 
-  const { isCartOpen, toggleCart } = useCartStore()
+  const { toggleCart } = useCartStore()
 
   const increaseQuantityHandler = (product) => {
     const isItemExist = cart.cartItems.find(
