@@ -1,13 +1,14 @@
 import { useState } from "react"
 
 const StepsM = ({ currentStep }) => {
+  // eslint-disable-next-line no-unused-vars
   const [steps, setStep] = useState({
     stepsItems: ["Login", "Shipping Address", "Payment Method", "Place Order"],
     currentStep: 3,
   })
 
   return (
-    <div className='mx-auto py-4 max-w-5xl px-4 md:px-0'>
+    <div className='mx-auto py-4 max-w-5xl px-4 md:px-0 mt-20'>
       <ul
         aria-label='Steps'
         className='items-center text-gray-600 font-medium md:flex'>

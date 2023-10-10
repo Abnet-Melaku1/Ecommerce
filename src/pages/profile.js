@@ -44,8 +44,8 @@ const Profile = () => {
     }
   }
   return (
-    <Layout title='Register'>
-      <main className='w-full h-screen flex flex-col items-center justify-center px-4'>
+    <Layout title='Profile'>
+      <main className='w-full h-screen mt-10 flex flex-col items-center justify-center px-4'>
         <div className='max-w-sm w-full text-gray-600'>
           <div className='text-center '>
             <div className='mt-5 space-y-2'>
@@ -64,7 +64,7 @@ const Profile = () => {
                 {...register("name", {
                   required: "Please enter name",
                 })}
-                className='w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-orange-700 shadow-sm rounded-lg'
+                className='w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border-2 focus:border-orange-700 shadow-sm rounded-lg'
               />
               {errors.name && (
                 <small className='text-red-500 tex-base'>
@@ -83,7 +83,7 @@ const Profile = () => {
                     message: "Please enter valid email",
                   },
                 })}
-                className='w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-orange-700 shadow-sm rounded-lg'
+                className='w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border-2 focus:border-orange-700 shadow-sm rounded-lg'
               />
               {errors.email && (
                 <small classemail='text-red-500 tex-base'>

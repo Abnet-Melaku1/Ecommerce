@@ -9,7 +9,14 @@ const nextConfig = {
         port: "",
         pathname: "/images/**",
       },
+      {
+        protocol: "https",
+        hostname: "i.stack.imgur.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
+    domains: ["res.cloudinary.com"],
   },
 }
 

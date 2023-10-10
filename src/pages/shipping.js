@@ -4,11 +4,12 @@ import Image from "next/image"
 import { useForm } from "react-hook-form"
 import { useStateValue } from "@/context/StateProvider"
 import Cookies from "js-cookie"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 
 export default function Shipping() {
   const [{ cart }, dispatch] = useStateValue()
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
   const {
     handleSubmit,
@@ -61,6 +62,7 @@ export default function Shipping() {
         },
       })
     )
+    setLoading(true)
     router.push("/payment")
   }
   return (
@@ -77,18 +79,19 @@ export default function Shipping() {
                   <div
                     key={item.slug}
                     class='flex flex-col rounded-lg bg-white sm:flex-row'>
-                    <img
-                      loading='lazy'
-                      class='m-2 h-24 w-28 rounded-md border object-cover object-center'
+                    <Image
+                      width={112}
+                      height={96}
+                      objectFit='cover'
                       src={item.image}
-                      alt=''
+                      alt={item.name}
                     />
                     <div class='flex w-full flex-col px-4 py-4'>
                       <span class='font-semibold'>{item.name}</span>
                       <span class='float-right text-gray-400'>
                         Quantity: {item.quantity}
                       </span>
-                      <p class='text-lg font-bold'>${item.price}</p>
+                      <p class='text-lg font-bold'>${item.price} USD</p>
                     </div>
                   </div>
                 ))}
@@ -255,24 +258,11 @@ export default function Shipping() {
                     </small>
                   )}
                 </div>
-                <div class='mt-6 border-t border-b py-2'>
-                  <div class='flex items-center justify-between'>
-                    <p class='text-sm font-medium text-orange-800'>Subtotal</p>
-                    <p class='font-semibold text-orange-800'></p>
-                  </div>
-                  <div class='flex items-center justify-between'>
-                    <p class='text-sm font-medium text-orange-800'>Shipping</p>
-                    <p class='font-semibold text-orange-800'></p>
-                  </div>
-                </div>
-                <div class='mt-6 flex items-center justify-between'>
-                  <p class='text-sm font-medium text-orange-800'>Total</p>
-                  <p class='text-2xl font-semibold text-orange-800'></p>
-                </div>
+
                 <button
                   type='submit'
                   class='mt-4 mb-8 w-full rounded-md bg-orange-800 px-6 py-3 font-medium text-white'>
-                  Next
+                  {loading ? "loading" : "Next"}
                 </button>
               </form>
             </div>

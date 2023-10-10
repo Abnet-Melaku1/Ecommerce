@@ -3,15 +3,16 @@ import Link from "next/link"
 import { useStateValue } from "@/context/StateProvider"
 
 import { toast } from "react-toastify"
+import axios from "axios"
 const Product = ({ product }) => {
   const [{ cart }, dispatch] = useStateValue()
-  const addToCartHandler = () => {
+  const addToCartHandler = async () => {
     const isItemExist = cart.cartItems.find(
       (item) => item.slug === product.slug
     )
     const quantity = isItemExist ? isItemExist?.quantity + 1 : 1
-
-    if (product.countInStock < quantity) {
+    const { data } = await axios.get(`/api/products/${product._id}`)
+    if (data.countInStock < quantity) {
       toast.warning("Product is out of the stock.")
       return
     }

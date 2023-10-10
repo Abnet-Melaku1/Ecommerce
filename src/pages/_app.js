@@ -7,6 +7,7 @@ import reducer from "@/context/reducer"
 import { initialState } from "@/context/reducer"
 import { useRouter } from "next/router"
 import { ClipLoader } from "react-spinners"
+import { PayPalScriptProvider } from "@paypal/react-paypal-js"
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
@@ -14,21 +15,23 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <StateProvider initialState={initialState} reducer={reducer}>
-        {Component.auth ? (
-          <Auth>
+        <PayPalScriptProvider deferLoading={true}>
+          {Component.auth ? (
+            <Auth adminOnly={Component.auth.adminOnly}>
+              <Component {...pageProps} />
+            </Auth>
+          ) : (
             <Component {...pageProps} />
-          </Auth>
-        ) : (
-          <Component {...pageProps} />
-        )}
+          )}
+        </PayPalScriptProvider>
         <ToastContainer />
       </StateProvider>
     </SessionProvider>
   )
 }
-function Auth({ children }) {
+function Auth({ children, adminOnly }) {
   const router = useRouter()
-  const { status } = useSession({
+  const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
       router.push("/unauthorized?message=login required")
@@ -41,6 +44,9 @@ function Auth({ children }) {
         <ClipLoader color='lightblue' size={80} />
       </div>
     )
+  }
+  if (adminOnly && !session.user.isAdmin) {
+    router.push("/unauthorized?message=admin login required")
   }
 
   return children

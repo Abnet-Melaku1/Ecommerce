@@ -1,33 +1,33 @@
 import Layout from "@/components/Layout"
-import data from "@/utils/data"
+
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/router"
+
 import { Rating } from "@smastrom/react-rating"
 import { BsArrowLeft } from "react-icons/bs"
 import "@smastrom/react-rating/style.css"
 import { useStateValue } from "@/context/StateProvider"
 import useCartStore from "@/hooks/useCart"
-import cart from "../cart"
-import dynamic from "next/dynamic"
-const productScreen = () => {
-  const { query } = useRouter()
-  const { slug } = query
-  console.log(slug)
-  const product = data.find((product) => product.slug === slug)
 
+import db from "@/utils/db"
+import Product from "@/models/Product"
+import axios from "axios"
+const productScreen = ({ product }) => {
   if (!product) {
     return <div>not found</div>
   }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [{ cart }, dispatch] = useStateValue()
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { isCartOpen, toggleCart } = useCartStore()
-  const addToCartHandler = () => {
+  const addToCartHandler = async () => {
     const isItemExist = cart.cartItems.find(
       (item) => item.slug === product.slug
     )
+    const { data } = await axios.get(`/api/products/${product._id}`)
     const quantity = isItemExist ? isItemExist?.quantity + 1 : 1
 
-    if (product.countInStock < quantity) {
+    if (data.countInStock < quantity) {
       alert("Product is out of stock.")
       return
     }
@@ -48,7 +48,12 @@ const productScreen = () => {
           </Link>
           <div className='flex flex-col md:flex-row justify-around rounded-lg border border-neutral-200 bg-white p-8 px-4 dark:border-neutral-800 dark:bg-black md:p-12 container mx-auto gap-3'>
             <div className='md:w-2/3 flex items-center justify-center'>
-              <Image src={product?.image} width={400} height={600} />
+              <Image
+                src={product?.image}
+                alt={product?.name}
+                width={400}
+                height={600}
+              />
             </div>
             <div className='mb-6 flex flex-col border-b pb-6 dark:border-neutral-700 gap-6 md:w-2/6'>
               <p className='mb-2 text-4xl font-medium'>{product?.name}</p>
@@ -87,3 +92,16 @@ const productScreen = () => {
   )
 }
 export default productScreen
+export async function getServerSideProps(context) {
+  const { params } = context
+  const { slug } = params
+
+  await db.connect()
+  const product = await Product.findOne({ slug }).lean()
+  await db.disconnect()
+  return {
+    props: {
+      product: product ? db.convertDocToObj(product) : null,
+    },
+  }
+}

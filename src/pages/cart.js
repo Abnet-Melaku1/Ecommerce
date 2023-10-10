@@ -11,6 +11,8 @@ import {
 import useCartStore from "@/hooks/useCart"
 import { useStateValue } from "@/context/StateProvider"
 import { useRouter } from "next/router"
+import axios from "axios"
+import Image from "next/image"
 
 function Cart() {
   const [open, setOpen] = useState(true)
@@ -22,13 +24,15 @@ function Cart() {
 
   const { toggleCart } = useCartStore()
 
-  const increaseQuantityHandler = (product) => {
+  const increaseQuantityHandler = async (product) => {
+    console.log(product)
     const isItemExist = cart.cartItems.find(
       (item) => item.slug === product.slug
     )
     const quantity = isItemExist ? isItemExist.quantity + 1 : 1
+    const { data } = await axios.get(`/api/products/${product._id}`)
 
-    if (product.countInStock < quantity) {
+    if (data.countInStock < quantity) {
       toast.warning("Product is out of stock.")
       return
     }
@@ -61,6 +65,10 @@ function Cart() {
   }
   const onClick = () => {
     toggleCart()
+    setOpen(false)
+  }
+  const handleCheckout = () => {
+    router.push("/shipping")
     setOpen(false)
   }
   const removeItemHandler = (item) => {
@@ -127,10 +135,12 @@ function Cart() {
                               {cart?.cartItems.map((item) => (
                                 <li key={item.id} className='flex py-6'>
                                   <div className='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200'>
-                                    <img
+                                    <Image
                                       src={item.image}
                                       alt={item.name}
-                                      className='h-full w-full object-cover object-center'
+                                      width={96}
+                                      height={96}
+                                      objectFit='cover'
                                     />
                                   </div>
 
@@ -217,7 +227,7 @@ function Cart() {
                         </p>
                         <div className='mt-6'>
                           <button
-                            onClick={() => router.push("/shipping")}
+                            onClick={handleCheckout}
                             className='flex items-center justify-center rounded-md border border-transparent bg-orange-700 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-orange-800 w-full'>
                             Checkout
                           </button>
@@ -247,4 +257,5 @@ function Cart() {
   )
 }
 
+// eslint-disable-next-line no-undef
 export default dynamic(() => Promise.resolve(Cart), { ssr: false })

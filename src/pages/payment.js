@@ -71,7 +71,9 @@ export default function Payment() {
             </div>{" "}
             Back
           </button>
-          <button className='flex  items-center justify-center bg-orange-800 text-white px-4 py-1 gap-1 rounded-md'>
+          <button
+            onClick={() => router.push("/placeorder")}
+            className='flex  items-center justify-center bg-orange-800 text-white px-4 py-1 gap-1 rounded-md'>
             Next{" "}
             <div>
               <AiOutlineRight color='white' />
