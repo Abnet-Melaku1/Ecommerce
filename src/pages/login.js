@@ -65,7 +65,7 @@ const Login = () => {
                     message: "Please enter valid email",
                   },
                 })}
-                className='w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border-2 focus:border-orange-700 shadow-sm rounded-lg'
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-neutral-400 rounded-md outline-none focus:border-orange-700 focus:ring-0 bg-white  transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'
               />
               {errors.email && (
                 <small className='text-red-500'>{errors.email.message}</small>
@@ -82,7 +82,7 @@ const Login = () => {
                     message: "password is less than 6 characters",
                   },
                 })}
-                className='w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border-2 focus:border-orange-700 shadow-sm rounded-lg'
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-neutral-400 rounded-md outline-none focus:border-orange-700 focus:ring-0 bg-white  transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'
               />
               {errors.password && (
                 <small className='text-red-500'>

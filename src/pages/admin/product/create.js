@@ -70,6 +70,7 @@ export default function CreateProduct() {
     slug,
     price,
     category,
+    rating,
     image,
     brand,
     countInStock,
@@ -82,6 +83,7 @@ export default function CreateProduct() {
         slug,
         price,
         category,
+        rating,
         image,
         brand,
         countInStock,
@@ -106,7 +108,7 @@ export default function CreateProduct() {
           <div className='grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2'>
             <div>
               <label className='text-white dark:text-gray-200' for='name'>
-                Name
+                Product Name
               </label>
               <input
                 id='name'
@@ -115,7 +117,7 @@ export default function CreateProduct() {
                 {...register("name", {
                   required: "Please enter name",
                 })}
-                className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-orange-500 dark:focus:border-orange-500 focus:outline-none focus:ring'
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-orange-700 rounded-md outline-none focus:border-orange-800 focus:ring-0 bg-white  transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'
               />
               {errors.name && (
                 <div className='text-red-500 text-base'>
@@ -134,7 +136,7 @@ export default function CreateProduct() {
                 {...register("slug", {
                   required: "Please enter slug",
                 })}
-                className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-orange-500 dark:focus:border-orange-500 focus:outline-none focus:ring'
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-orange-700 rounded-md outline-none focus:border-orange-800 focus:ring-0 bg-white  transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'
               />
               {errors.slug && (
                 <div className='text-red-500 text-base'>
@@ -153,7 +155,7 @@ export default function CreateProduct() {
                 {...register("price", {
                   required: "Please enter price",
                 })}
-                className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-orange-500 dark:focus:border-orange-500 focus:outline-none focus:ring'
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-orange-700 rounded-md outline-none focus:border-orange-800 focus:ring-0 bg-white  transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'
               />
               {errors.price && (
                 <div className='text-red-500 text-base'>
@@ -172,11 +174,29 @@ export default function CreateProduct() {
                 {...register("category", {
                   required: "Please enter category",
                 })}
-                className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-orange-500 dark:focus:border-orange-500 focus:outline-none focus:ring'
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-orange-700 rounded-md outline-none focus:border-orange-800 focus:ring-0 bg-white  transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'
               />
               {errors.category && (
                 <div className='text-red-500 text-base'>
                   {errors.category.message}
+                </div>
+              )}
+            </div>
+            <div>
+              <label className='text-white dark:text-gray-200' for='rating'>
+                Rating
+              </label>
+              <input
+                id='rating'
+                type='text'
+                {...register("rating", {
+                  required: "Please enter rating",
+                })}
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-orange-700 rounded-md outline-none focus:border-orange-800 focus:ring-0 bg-white  transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'
+              />
+              {errors.rating && (
+                <div className='text-red-500 text-base'>
+                  {errors.rating.message}
                 </div>
               )}
             </div>
@@ -190,7 +210,7 @@ export default function CreateProduct() {
                 {...register("countInStock", {
                   required: "Please enter countInStock",
                 })}
-                className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-orange-500 dark:focus:border-orange-500 focus:outline-none focus:ring'
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-orange-700 rounded-md outline-none focus:border-orange-800 focus:ring-0 bg-white  transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'
               />
               {errors.countInStock && (
                 <div className='text-red-500 text-base'>
@@ -208,7 +228,7 @@ export default function CreateProduct() {
                 {...register("brand", {
                   required: "Please enter brand",
                 })}
-                className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-orange-500 dark:focus:border-orange-500 focus:outline-none focus:ring'
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-orange-700 rounded-md outline-none focus:border-orange-800 focus:ring-0 bg-white  transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'
               />
               {errors.brand && (
                 <div className='text-red-500'>{errors.brand.message}</div>
@@ -226,7 +246,7 @@ export default function CreateProduct() {
                 {...register("description", {
                   required: "Please enter description",
                 })}
-                class='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring'></textarea>
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-orange-700 rounded-md outline-none focus:border-orange-800 focus:ring-0 bg-white  transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'></textarea>
               {errors.description && (
                 <div className='text-red-500'>{errors.description.message}</div>
               )}
@@ -253,8 +273,8 @@ export default function CreateProduct() {
                   <div className='flex text-sm text-gray-600'>
                     <label
                       for='imageFile'
-                      className='relative cursor-pointer bg-white rounded-md font-medium text-orange-600 hover:text-orange-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-orange-500'>
-                      <span className=''>Upload a file</span>
+                      className='w-full mt-2 px-3 py-2 text-lg border-2 border-orange-700 rounded-md outline-none focus:border-orange-800 focus:ring-0 bg-white  transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'>
+                      <span className='cursor-pointer'>Upload a file</span>
                       <input
                         id='imageFile'
                         name='imageFile'
@@ -266,7 +286,7 @@ export default function CreateProduct() {
                     <p className='pl-1 text-white'>or drag and drop</p>
                     {loadingUpload && <div>Uploading....</div>}
                   </div>
-                  <p className='text-xs text-white'>PNG, JPG, GIF up to 10MB</p>
+                  <p className='text-xs text-white'>PNG, JPG</p>
                 </div>
               </div>
             </div>

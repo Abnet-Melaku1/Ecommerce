@@ -47,7 +47,7 @@ const Register = () => {
   }
   return (
     <Layout title='Register'>
-      <main className='w-full h-screen flex flex-col items-center justify-center px-4'>
+      <main className='w-full h-screen flex flex-col mt-8 items-center justify-center px-4'>
         <div className='max-w-sm w-full text-gray-600'>
           <div className='text-center '>
             <div className='mt-5 space-y-2'>
@@ -70,11 +70,11 @@ const Register = () => {
             <div>
               <label className='font-medium'>Name</label>
               <input
-                type='name'
+                type='text'
                 {...register("name", {
                   required: "Please enter name",
                 })}
-                className='w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-orange-700 shadow-sm rounded-lg'
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-neutral-400 rounded-md outline-none focus:border-orange-700 focus:ring-0 bg-white text-white transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'
               />
               {errors.name && (
                 <small className='text-red-500 tex-base'>
@@ -93,7 +93,7 @@ const Register = () => {
                     message: "Please enter valid email",
                   },
                 })}
-                className='w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-orange-700 shadow-sm rounded-lg'
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-neutral-400 rounded-md outline-none focus:border-orange-700 focus:ring-0 bg-white text-white transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'
               />
               {errors.email && (
                 <small classemail='text-red-500 tex-base'>
@@ -112,7 +112,7 @@ const Register = () => {
                     message: "password is more than 5 chars",
                   },
                 })}
-                className='w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border-2 focus:border-orange-700 shadow-sm rounded-lg'
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-neutral-400 rounded-md outline-none focus:border-orange-700 focus:ring-0 bg-white text-white transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'
               />
               {errors.password && (
                 <small classemail='text-red-500 tex-base'>
@@ -134,7 +134,7 @@ const Register = () => {
                       "confirm password should be more than 5 characters",
                   },
                 })}
-                className='w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border-2 focus:border-orange-700 shadow-sm rounded-lg'
+                className='w-full mt-2 px-3 py-2 text-lg border-2 border-neutral-400 rounded-md outline-none focus:border-orange-700 focus:ring-0 bg-white text-white transition disabled:bg-neutral-700 disabled:opacity-70 disabled:cursor-not-allowed'
               />
               {errors.confirmPassword && (
                 <small className='text-red-500 text-base '>
