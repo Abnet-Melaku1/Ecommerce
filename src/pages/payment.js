@@ -45,7 +45,7 @@ export default function Payment() {
       <StepsM currentStep={3} />
       <form className='mx-auto max-w-screen-md' onSubmit={submitHandler}>
         <h1 className='mb-4 text-xl'>Payment Method</h1>
-        {["Stripe", "PayPal", "CashOnDelivery"].map((payment) => (
+        {["PayPal", "CashOnDelivery"].map((payment) => (
           <div key={payment} className='mb-4'>
             <input
               name='paymentMethod'
